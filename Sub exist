@@ -1,0 +1,17 @@
+from flask import Flask, jsonify
+import random
+import string
+
+app = Flask(__name__)
+
+def generate_random_string(length=8):
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for _ in range(length))
+
+@app.route('/generate-random-string', methods=['GET'])
+def random_string():
+    random_str = generate_random_string(12)  # Generates a random string of length 12
+    return jsonify({"random_string": random_str})
+
+if __name__ == '__main__':
+    app.run(debug=True)
